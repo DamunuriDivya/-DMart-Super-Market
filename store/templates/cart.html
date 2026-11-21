@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DMart - My Cart</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        h1 {
+            color: green;
+        }
+
+        .cart-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        .payment-btn {
+            background: green;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🛒 My Shopping Cart</h1>
+
+<a href="/products/">Continue Shopping</a>
+
+<h2>Cart Items</h2>
+
+{% for item in cart_items %}
+
+<div class="cart-item">
+
+    <h3>{{ item.name }}</h3>
+    <a href="{% url 'remove_from_cart' item.name %}">
+    <button style="
+        background: red;
+        color: white;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;">
+        🗑️ Remove
+    </button>
+</a>
+
+  {% if item.discount > 0 %}
+
+    <p>Original Price: <del>₹{{ item.original_price }}</del></p>
+
+    <p style="color: red;">
+        Discount: {{ item.discount }}% OFF
+    </p>
+
+    <h3 style="color: green;">
+        Offer Price: ₹{{ item.offer_price }}
+    </h3>
+
+{% else %}
+
+    <h3>Price: ₹{{ item.price }}</h3>
+
+{% endif %}
+
+</div>
+
+{% empty %}
+
+<h3>Your Cart is Empty!</h3>
+
+{% endfor %}
+
+<hr>
+
+<h2>Total Price: ₹{{ total_price }}</h2>
+
+{% if cart_items %}
+
+    <br>
+
+    <a href="{% url 'payment' %}">
+        <button class="payment-btn">
+            Proceed to Payment 💳
+        </button>
+    </a>
+
+{% endif %}
+
+</body>
+</html>

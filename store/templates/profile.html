@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Profile - DMart</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f4f4;
+            padding: 30px;
+        }
+
+        .profile-box {
+            background: white;
+            width: 400px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+        }
+
+        h2 {
+            text-align: center;
+            color: green;
+        }
+
+        p {
+            font-size: 17px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        a {
+            display: inline-block;
+            background: green;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="profile-box">
+
+    <h2>👤 My Profile</h2>
+
+    <p><b>Username:</b> {{ user.username }}</p>
+
+    <p><b>First Name:</b> {{ user.first_name }}</p>
+
+    <p><b>Last Name:</b> {{ user.last_name }}</p>
+
+    <p><b>Email:</b> {{ user.email }}</p>
+
+    <a href="{% url 'home' %}">Home</a>
+
+    <a href="{% url 'logout' %}">Logout</a>
+
+</div>
+
+</body>
+</html>

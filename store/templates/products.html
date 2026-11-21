@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DMart - Products</title>
+
+    <link rel="stylesheet" href="{% static 'store/css/style.css' %}">
+</head>
+
+<body>
+
+<h1>🛒 DMart Super Market - Products</h1>
+
+<a href="/">Home</a>
+
+<h2>Our Products</h2>
+
+<a href="{% url 'cart' %}">🛒 View Cart</a>
+<br><br>
+
+<a href="{% url 'wishlist' %}">❤️ My Wishlist</a>
+
+<br><br>
+
+<form method="GET">
+    <input type="text" placeholder="Search Products..." name="search">
+    <button type="submit">Search</button>
+</form>
+
+<br>
+
+{% if search_query %}
+    <h3>You searched for: {{ search_query }}</h3>
+{% endif %}
+
+{% for product in products %}
+
+<div class="product-card">
+
+    <img src="{% static product.image %}" width="150">
+
+    <h3>{{ product.name }}</h3>
+
+   {% if product.discount > 0 %}
+
+    <p>
+        Original Price:
+        <del>₹{{ product.original_price }}</del>
+    </p>
+
+    <h3 style="color: green;">
+        Offer Price: ₹{{ product.offer_price }}
+    </h3>
+
+    <p style="color: red;">
+        {{ product.discount }}% OFF
+    </p>
+
+{% else %}
+
+    <h3>Price: ₹{{ product.price }}</h3>
+
+{% endif %}
+    <a href="{% url 'add_to_cart' product.name %}">
+        <button type="button">Add to Cart</button>
+    </a>
+
+    <form method="POST" action="{% url 'add_to_wishlist' %}">
+        {% csrf_token %}
+
+        <input type="hidden" name="product_name" value="{{ product.name }}">
+
+        <input type="hidden" name="product_price" value="{{ product.price }}">
+
+        <input type="hidden" name="product_image" value="{{ product.image }}">
+
+        <button type="submit">❤️ Add to Wishlist</button>
+
+    </form>
+
+</div>
+
+{% empty %}
+
+<h3>Sorry! No products found.</h3>
+
+{% endfor %}
+
+</body>
+</html>

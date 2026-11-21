@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Wishlist - DMart</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: green;
+        }
+
+        .wishlist-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .product-card {
+            background: white;
+            width: 220px;
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #ccc;
+        }
+
+        .product-card img {
+            width: 150px;
+            height: 130px;
+            object-fit: contain;
+        }
+
+        button {
+            background-color: red;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>❤️ My Wishlist</h1>
+
+    <a href="{% url 'products' %}">← Back to Products</a>
+
+    <div class="wishlist-container">
+
+        {% for item in wishlist_items %}
+
+        <div class="product-card">
+
+            {% if item.product_image %}
+            <img src="{% static item.product_image %}" alt="{{ item.product_name }}">
+            {% endif %}
+
+            <h3>{{ item.product_name }}</h3>
+
+            <p>Price: ₹{{ item.product_price }}</p>
+
+            <a href="{% url 'remove_wishlist' item.id %}">
+                <button>Remove ❤️</button>
+            </a>
+
+        </div>
+
+        {% empty %}
+
+        <h3>Your Wishlist is Empty!</h3>
+
+        {% endfor %}
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DMart - Order Confirmation</title>
+</head>
+<body>
+
+    <h1>🎉 Order Placed Successfully!</h1>
+
+    <h2>Thank You for Shopping with DMart!</h2>
+
+    <hr>
+
+    <h3>Order Details</h3>
+
+    <p>Order ID: {{ order.order_id }}</p>
+
+    <p>Total Amount: ₹{{ order.total_price }}</p>
+
+    <p>Payment Method: {{ order.payment_method }}</p>
+
+    <p>Order Status: {{ order.order_status }}</p>
+
+    <p>Order Date: {{ order.order_date }}</p>
+
+    <hr>
+
+    <a href="{% url 'home' %}">
+        <button>Back to Home</button>
+    </a>
+
+    <a href="{% url 'products' %}">
+        <button>Continue Shopping</button>
+    </a>
+
+</body>
+</html>
