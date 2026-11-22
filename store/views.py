@@ -357,3 +357,4 @@ def profile_page(request):
 def logout_page(request):
     logout(request)
     return redirect('home')
+LOGIN_URL = '/login/'
